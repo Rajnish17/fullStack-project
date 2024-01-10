@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import "./dashboard.css"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 const DashBoard = () => {
   const navigate = useNavigate();
@@ -25,16 +25,16 @@ const DashBoard = () => {
       <nav className="main-menu">
         <ul>
           <li>
-            <a href="https://jbfarrow.com">
+            <Link>
               <i className="fa fa-home fa-2x" />
               <span className="nav-text">Community Dashboard</span>
-            </a>
+            </Link>
           </li>
           <li className="has-subnav">
-            <a href="#">
+            <Link to={"/user"}>
               <i className="fa fa-globe fa-2x" />
               <span className="nav-text">All Users</span>
-            </a>
+            </Link>
           </li>
           <li className="has-subnav">
             <a href="#">

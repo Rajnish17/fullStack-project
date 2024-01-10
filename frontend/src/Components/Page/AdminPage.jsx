@@ -1,10 +1,13 @@
 import React from 'react'
-import DashBoard from "../DashBoard/DashBoard"
+import UserDetails from '../Users/UserDetails'
+import DashBoard from '../DashBoard/DashBoard'
 
 const AdminPage = () => {
   return (
     <div>
-      
+      <DashBoard/>
+      <UserDetails/>
+
       
     </div>
   )

@@ -1,8 +1,11 @@
 import React from 'react'
+import Navbar from "../Nav/Navbar"
 
 const UserPage = () => {
   return (
-    <div>UserPage</div>
+   <>
+   <Navbar />
+   </>
   )
 }
 

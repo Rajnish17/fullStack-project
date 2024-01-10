@@ -12,6 +12,7 @@ const Signup = () => {
   const [email, setEmail] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
   const [password, setPassword] = useState();
+  const [error, setError] = useState('');
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -25,6 +26,7 @@ const Signup = () => {
 
     } catch (error) {
       console.log(error);
+      setError(error.response.data.message);
 
     }
   }
@@ -40,6 +42,7 @@ const Signup = () => {
             <input type="email" placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} />
             <input type="password" placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} />
             <button onClick={handleSignup}>Signup</button>
+            {error && <p className="error-message">{error}</p>}
             <p className="message">
               Already registered? <Link to="/login">Login Here</Link>
             </p>

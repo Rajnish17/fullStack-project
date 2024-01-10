@@ -73,7 +73,7 @@ const isUser = (req, res, next) => {
         });
       }
     } catch (error) {
-      console.error(error.name);
+      // console.error(error.name);
       if (error.name === "JsonWebTokenError") {
         res.status(401).json({
           success: false,

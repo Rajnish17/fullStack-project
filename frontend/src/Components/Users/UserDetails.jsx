@@ -3,6 +3,7 @@ import "./user.css"
 import axios from 'axios'
 import baseUrl from "../api"
 
+
 const UserDetails = () => {
     const [data, setData] = useState([]);
 
@@ -46,7 +47,8 @@ const UserDetails = () => {
         }
     };
 
-    return (
+    return (<>
+        
         <div className="datatable">
             <input type="checkbox" id="reverse" />
             <input type="checkbox" id="type" />
@@ -84,6 +86,7 @@ const UserDetails = () => {
 
             </div>
         </div>
+        </>
 
     )
 }
