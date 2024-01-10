@@ -8,6 +8,7 @@ import Signup from './Components/Signup/Signup';
 import Login from './Components/Login/Login';
 import DashBoard from "./Components/DashBoard/DashBoard";
 import NotFound from './Components/NotFound';
+import UserDetails from "./Components/Users/UserDetails" 
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/user" element={<UserDetails />} />
       </Routes>
     </BrowserRouter>
   );

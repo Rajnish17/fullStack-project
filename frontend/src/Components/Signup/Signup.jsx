@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import "./signup.css"
-import api from "../api"
+import baseUrl from "../api"
 
 
 const Signup = () => {
@@ -17,7 +17,7 @@ const Signup = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.post(`${api}/user/signup`, { fullName, email, phoneNumber, password });
+      const response = await axios.post(`${baseUrl}/user/signup`, { fullName, email, phoneNumber, password });
        console.log(response);
       if (response.status == 201) {
         navigate('/login');

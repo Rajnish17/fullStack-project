@@ -9,7 +9,8 @@ const {isAdmin,isUser} =require("../middleware/checkUserType")
 router.post("/signup",registerUser);
 router.post("/login",loginUser);
 router.get("/findall",isAdmin,getAllUser);
-router.delete("/delete/:id",isUser,deleteUserById);
+router.delete("/delete/:id",isAdmin,deleteUserById);
+// router.delete("/delete/:id", [isUser || isAdmin], deleteUserById);
 router.put("/update/:id",isUser,updateUserById);
 
 
