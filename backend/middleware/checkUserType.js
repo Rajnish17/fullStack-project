@@ -16,7 +16,7 @@ const isUser = (req, res, next) => {
       token = token.split(" ")[1];
   
       let user = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(user)
+      // console.log(user)
       if (user.role === "user") {
         req.user = user; 
         next();

@@ -149,6 +149,36 @@ const getAllUser = async (req, res) => {
     }
 };
 
+//find One user Controller Here
+const getOneUser = async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+        // Find the user by ID
+        const user = await User.findById(userId).select('-password');
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "User retrieved successfully",
+            user: user,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error,
+        });
+    }
+};
+
 // Update User Controller
 const updateUserById = async (req, res) => {
     const userId = req.params.id;
@@ -229,6 +259,7 @@ module.exports = {
     registerUser,
     loginUser,
     getAllUser,
+    getOneUser,
     updateUserById,
     deleteUserById
 
