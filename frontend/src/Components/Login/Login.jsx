@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import baseUrl from "../api"
 import axios from 'axios'
-import "./login.css"
+// import "./login.css"
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,16 +17,19 @@ const Login = () => {
     try {
       const response = await axios.post(`${baseUrl}/user/login`, { email, password });
       // console.log(response);
-      const role =response.data.data.role
+      const role =response.data.data.role;
+      const userId =response.data.data.userId;
 
       if (response.status == 200 && role =="admin") {
         const { token } = response.data.data;
         localStorage.setItem('token', token);
+        localStorage.setItem('userId', userId);
         navigate('/admin-dashboard');
       }
       else if(response.status == 200 && role =="user"){
         const { token } = response.data.data;
         localStorage.setItem('token', token);
+        localStorage.setItem('userId', userId);
         navigate('/user-dashboard');
       }
 
