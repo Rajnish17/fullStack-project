@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import baseUrl from "../api";
+import baseUrl from "../../api";
 import "./index.css"
 
 const UserDetails = () => {

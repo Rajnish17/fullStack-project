@@ -1,17 +1,18 @@
 import { useEffect } from 'react';
-import "./dashboard.css"
+import "./Sidebar.css"
+
 import { useNavigate,Link } from 'react-router-dom';
 
-const DashBoard = () => {
+const Sidebar = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
 
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
+  //   // if (!token) {
+  //   //   navigate("/login");
+  //   // }
+  // }, [navigate]);
 
 
   const handleLogout = () => {
@@ -25,45 +26,45 @@ const DashBoard = () => {
       <nav className="main-menu">
         <ul>
           <li>
-            <Link>
+            <Link to={"/admin"}>
               <i className="fa fa-home fa-2x" />
-              <span className="nav-text">Community Dashboard</span>
+              <span className="nav-text">Dashboard</span>
             </Link>
           </li>
           <li className="has-subnav">
-            <Link to={"/user"}>
-              <i className="fa fa-globe fa-2x" />
+            <Link to={"/admin/users"}>
+              <i className="fa fa-users" />
               <span className="nav-text">All Users</span>
             </Link>
           </li>
           <li className="has-subnav">
-            <a href="#">
+            <Link to={"/"}>
               <i className="fa fa-comments fa-2x" />
-              <span className="nav-text">Group Hub Forums</span>
-            </a>
+              <span className="nav-text">Shop</span>
+            </Link>
           </li>
           <li className="has-subnav">
             <a href="#">
               <i className="fa fa-camera-retro fa-2x" />
-              <span className="nav-text">Survey Photos</span>
+              <span className="nav-text">Product</span>
             </a>
           </li>
           <li>
             <a href="#">
               <i className="fa fa-film fa-2x" />
-              <span className="nav-text">Surveying Tutorials</span>
+              <span className="nav-text">Categories</span>
             </a>
           </li>
           <li>
             <a href="#">
               <i className="fa fa-book fa-2x" />
-              <span className="nav-text">Surveying Jobs</span>
+              <span className="nav-text">Inventory</span>
             </a>
           </li>
           <li>
             <a href="#">
               <i className="fa fa-cogs fa-2x" />
-              <span className="nav-text">Tools &amp; Resources</span>
+              <span className="nav-text">Tools &amp; Reports</span>
             </a>
           </li>
           <li>
@@ -94,4 +95,4 @@ const DashBoard = () => {
   )
 }
 
-export default DashBoard
+export default Sidebar

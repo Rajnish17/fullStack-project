@@ -1,0 +1,21 @@
+import React from 'react';
+import UserDetails from '../Components/Admin/UserDetails/UserDetails';
+import Sidebar from '../Components/Admin/Sidebar/Sidebar';
+import Home from '../Components/Admin/Home/Home';
+import NotFound from '../Components/Admin/NotFound/NotFound';
+import { Route, Routes } from 'react-router-dom';
+
+const AdminPage = () => {
+  return (
+    <>
+
+      <Sidebar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/users" element={<UserDetails />} />
+      </Routes>
+    </>
+  );
+};
+
+export default AdminPage;

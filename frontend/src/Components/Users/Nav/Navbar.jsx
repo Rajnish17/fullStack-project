@@ -5,13 +5,13 @@ import "./nav.css";
 const Navbar = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
 
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
+  //   if (!token) {
+  //     navigate("/login");
+  //   }
+  // }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
