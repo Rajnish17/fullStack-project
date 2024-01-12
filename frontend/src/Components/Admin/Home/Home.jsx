@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import 
 { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
  from 'react-icons/bs'
@@ -7,8 +7,45 @@ import
  from 'recharts';
 
  import "./Home.css"
+import axios from 'axios';
+import baseUrl  from  "../../api";
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const[Data,setData]=useState();
+  const navigate =useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const userId = localStorage.getItem("userId");
+
+            if (!token || !userId) {
+                navigate("/admin-login");
+                return;
+            }
+
+            const response = await axios.get(`${baseUrl}/user/total`, {
+                headers: {
+                    token: `bearer ${token}`,
+                },
+            });
+
+            setData(response.data.totalUsers);
+            // console.log(response.data.totalUsers)
+        } catch (error) {
+            console.log(error);
+            if (error.response && error.response.status === 403) {
+                // Unauthorized access, token is not valid
+                navigate("/admin-login");
+                return;
+            }
+        }
+    };
+
+    fetchData();
+}, [navigate]); 
 
     const data = [
         {
@@ -65,10 +102,10 @@ function Home() {
         <div className='main-cards'>
             <div className='card'>
                 <div className='card-inner'>
-                    <h3>PRODUCTS</h3>
+                    <h3>Users</h3>
                     <BsFillArchiveFill className='card_icon'/>
                 </div>
-                <h1>300</h1>
+                <h1>{Data}</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>

@@ -253,6 +253,27 @@ const deleteUserById = async (req, res) => {
     }
 };
 
+//Total number of users
+const getTotalUsers = async (req, res) => {
+    try {
+        // Find the total number of users in the database
+        const totalUsers = await User.countDocuments();
+
+        res.status(200).json({
+            success: true,
+            message: "Total number of users retrieved successfully",
+            totalUsers: totalUsers
+        });
+    } catch (error) {
+        // Handle any errors that occur during the process
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error
+        });
+    }
+};
 
 
 module.exports = {
@@ -261,7 +282,8 @@ module.exports = {
     getAllUser,
     getOneUser,
     updateUserById,
-    deleteUserById
+    deleteUserById,
+    getTotalUsers
 
 
 };

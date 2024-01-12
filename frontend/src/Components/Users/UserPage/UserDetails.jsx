@@ -2,21 +2,24 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from "../../api"
 import "./index.css"
+import { useNavigate } from 'react-router-dom';
 
 const UserDetails = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [updatedUser, setUpdatedUser] = useState({
     fullName: "",
     email: "",
     phoneNumber: "",
   });
+  const [editField, setEditField] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem("userId");
-        // console.log(userId)
 
         if (!token) {
           navigate("/user-login");
@@ -32,11 +35,15 @@ const UserDetails = () => {
         setUser(response.data.user);
       } catch (error) {
         console.error(error);
+        if (error.response && error.response.status === 403) {
+          // Unauthorized access, token is not valid
+          navigate("/user-login");
+        }
       }
     };
 
     fetchData();
-  }, []);
+  }, [navigate]);
 
   const handleUpdateUser = async () => {
     try {
@@ -59,6 +66,8 @@ const UserDetails = () => {
         email: "",
         phoneNumber: "",
       });
+      setEditField(null);
+      setIsEditing(false);
 
       console.log("User updated successfully");
     } catch (error) {
@@ -66,23 +75,25 @@ const UserDetails = () => {
     }
   };
 
+  const handleEditClick = (field) => {
+    setEditField(field);
+    setUpdatedUser({ ...updatedUser, [field]: user[field] });
+    setIsEditing(true);
+  };
 
-
+  const handleSaveClick = () => {
+    setIsEditing(false);
+    handleUpdateUser();
+  };
 
   return (
-    <div className='container'>
+    <div className='user-container'>
       <h2>User Details</h2>
       {user ? (
         <div>
-          <p><strong>Full Name:</strong> {user.fullName}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Phone Number:</strong> {user.phoneNumber}</p>
-
-          {/* Update User Form */}
-          <h3>Update User Details</h3>
-          <form className='container'>
-            <label>
-              Full Name:
+          <p>
+            <strong>Full Name:</strong>{' '}
+            {isEditing && editField === 'fullName' ? (
               <input
                 type="text"
                 value={updatedUser.fullName}
@@ -90,11 +101,18 @@ const UserDetails = () => {
                   setUpdatedUser({ ...updatedUser, fullName: e.target.value })
                 }
               />
-            </label>
-            <br />
-
-            <label>
-              Email:
+            ) : (
+              <span>{user.fullName}</span>
+            )}
+            {isEditing ? (
+              <button onClick={handleSaveClick}>Save</button>
+            ) : (
+              <button onClick={() => handleEditClick('fullName')}>Edit</button>
+            )}
+          </p>
+          <p>
+            <strong>Email:</strong>{' '}
+            {isEditing && editField === 'email' ? (
               <input
                 type="email"
                 value={updatedUser.email}
@@ -102,11 +120,18 @@ const UserDetails = () => {
                   setUpdatedUser({ ...updatedUser, email: e.target.value })
                 }
               />
-            </label>
-            <br />
-
-            <label>
-              Phone Number:
+            ) : (
+              <span>{user.email}</span>
+            )}
+            {isEditing ? (
+              <button onClick={handleSaveClick}>Save</button>
+            ) : (
+              <button onClick={() => handleEditClick('email')}>Edit</button>
+            )}
+          </p>
+          <p>
+            <strong>Phone Number:</strong>{' '}
+            {isEditing && editField === 'phoneNumber' ? (
               <input
                 type="tel"
                 value={updatedUser.phoneNumber}
@@ -114,13 +139,23 @@ const UserDetails = () => {
                   setUpdatedUser({ ...updatedUser, phoneNumber: e.target.value })
                 }
               />
-            </label>
-            <br />
+            ) : (
+              <span>{user.phoneNumber}</span>
+            )}
+            {isEditing ? (
+              <button onClick={handleSaveClick}>Save</button>
+            ) : (
+              <button onClick={() => handleEditClick('phoneNumber')}>Edit</button>
+            )}
+          </p>
 
-            <button type="button" onClick={handleUpdateUser}>
-              Update User
-            </button>
-          </form>
+          {/* <form className='container'>
+            {isEditing && (
+              <button type="button" onClick={handleUpdateUser}>
+                Update User
+              </button>
+            )}
+          </form> */}
         </div>
       ) : (
         <p>Loading user details...</p>

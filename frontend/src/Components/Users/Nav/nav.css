@@ -15,11 +15,15 @@
 }
 .list-item{
     list-style: none;
+    text-decoration: none;
+    color: inherit;
     margin: 0 23px;
 }
 
 .left{
     font-size: 1.5rem;
+    text-decoration: none;
+    color: inherit;
 }
 .firstsection{
     display: flex;

@@ -29,6 +29,10 @@ const UserDetails = () => {
                 setData(response.data.users);
             } catch (error) {
                 console.log(error);
+                if (error.response && error.response.status === 403) {
+                    // Unauthorized access, token is not valid
+                    navigate("/admin-login");
+                }
             }
         };
 

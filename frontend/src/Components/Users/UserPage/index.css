@@ -1,17 +1,9 @@
-/* UserDetails.css */
-
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-}
-
-.container {
-  max-width: 500px;
-  margin: 20px auto;
-  background-color: #fff;
+.user-container {
+  max-width: 600px;
+  margin: auto;
+ 
   padding: 20px;
+  border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -20,48 +12,39 @@ h2 {
   color: #333;
 }
 
-h3 {
-  color: #555;
-  margin-top: 20px;
-}
-
-form {
-  margin-top: 10px;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
+p {
+  margin-bottom: 15px;
 }
 
 input {
-  width:100%;
+  width: 100%;
   padding: 8px;
-  margin-bottom: 12px;
-  box-sizing: border-box;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 button {
   background-color: #4caf50;
   color: #fff;
-  padding: 10px 15px;
   border: none;
+  padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
+  margin-right: 8px;
 }
 
 button:hover {
   background-color: #45a049;
 }
 
+.container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
 .loading {
   text-align: center;
-  margin-top: 20px;
-  color: #888;
+  color: #666;
 }
-
-.error {
-  color: #f00;
-}
-
-/* Add media queries for responsive design if needed */

@@ -22,14 +22,14 @@ const Navbar = () => {
 
   return (
     <nav className='container-nav'>
-      <div className="left">DashBoard</div>
+      <div className="left"> <Link to={"/user"} className="left">DashBoard</Link></div>
 
       <div className="right" />
       <ul className='ul-item'>
         <li className='list-item' >Home</li>
         <li className='list-item' >About</li>
         <li className='list-item' >Services</li>
-        <li className='list-item' >Profile</li>
+        <Link to={"/user/profile"} className='list-item'>  Profile</Link>
         {/* <li className='list-item' >Contact Me</li> */}
         <li className='list-item'  onClick={handleLogout}>Log Out</li>
       </ul>
