@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import "./signup.css"
-import baseUrl from "../../api"
+// import "./signup.css"
+import baseUrl from "../api"
+import { Toaster,toast  } from 'react-hot-toast';
 
 
-const Signup = () => {
+
+const AdminSignup = () => {
   const navigate = useNavigate();
 
-  const [fullName, setFullName] = useState();
+  const [name, setName] = useState();
   const [email, setEmail] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState('');
 
@@ -18,15 +19,18 @@ const Signup = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.post(`${baseUrl}/user/signup`, { fullName, email, phoneNumber, password });
+      const response = await axios.post(`${baseUrl}/admin/signup`, { name, email,password });
        console.log(response);
       if (response.status == 201) {
-        navigate('/login');
+        toast.success('Account created')
+        setTimeout(()=>{
+          navigate('/admin-login');
+        },2000)
       }
 
     } catch (error) {
-      console.log(error);
-      setError(error.response.data.message);
+      // console.log(error);
+      setError(error.response.data.error);
 
     }
   }
@@ -34,17 +38,18 @@ const Signup = () => {
   return (
     <>
       <div className="login-page">
+        <Toaster/>
         <div className="form">
+        <h3>Admin Signup</h3>
 
           <form className="login-form">
-            <input type="text" placeholder="fullName" onChange={(e) => { setFullName(e.target.value) }} />
-            <input type="text" placeholder="phoneNumber" onChange={(e) => { setPhoneNumber(e.target.value) }} />
+            <input type="text" placeholder="Name" onChange={(e) => { setName(e.target.value) }} />
             <input type="email" placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} />
             <input type="password" placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} />
             <button onClick={handleSignup}>Signup</button>
             {error && <p className="error-message">{error}</p>}
             <p className="message">
-              Already registered? <Link to="/login">Login Here</Link>
+              Already registered? <Link to="/admin-login">Login Here</Link>
             </p>
           </form>
         </div>
@@ -54,4 +59,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default AdminSignup

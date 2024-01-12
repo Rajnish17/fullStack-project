@@ -5,23 +5,24 @@ import "./nav.css";
 const Navbar = () => {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-  //   if (!token) {
-  //     navigate("/login");
-  //   }
-  // }, [navigate]);
+    if (!token) {
+      navigate("/user-login");
+      return;
+    }
+  }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    navigate("/login");
+    navigate("/");
   }
 
   return (
-    <nav className='nav-container'>
-      <div className="left">User DashBoard</div>
+    <nav className='container-nav'>
+      <div className="left">DashBoard</div>
 
       <div className="right" />
       <ul className='ul-item'>

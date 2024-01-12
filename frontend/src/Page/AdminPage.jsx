@@ -13,6 +13,7 @@ const AdminPage = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/users" element={<UserDetails />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </>
   );

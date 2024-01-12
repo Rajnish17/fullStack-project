@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import baseUrl from "../../api";
+import baseUrl from "../../api"
 import "./index.css"
 
 const UserDetails = () => {
@@ -19,7 +19,8 @@ const UserDetails = () => {
         // console.log(userId)
 
         if (!token) {
-          navigate("/login")
+          navigate("/user-login");
+          return;
         }
 
         const response = await axios.get(`${baseUrl}/user/findone/${userId}`, {

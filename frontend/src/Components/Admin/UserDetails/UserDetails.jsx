@@ -2,17 +2,23 @@ import React, { useEffect, useState } from 'react'
 import "./user.css"
 import axios from 'axios'
 import baseUrl from "../../api"
+import { useNavigate,Link } from 'react-router-dom';
 
 
 const UserDetails = () => {
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem("token");
-                // console.log(token);
+                const userId = localStorage.getItem("userId");
+
+                if (!token || !userId) {
+                    navigate("/admin-login");
+                    return;
+                }
 
                 const response = await axios.get(`${baseUrl}/user/findall`, {
                     headers: {
@@ -20,16 +26,14 @@ const UserDetails = () => {
                     },
                 });
 
-                // console.log(response.data.users);
                 setData(response.data.users);
-                setIsLoading(false);
             } catch (error) {
                 console.log(error);
             }
         };
 
         fetchData();
-    }, []);
+    }, [navigate]); 
 
     const handleDelete = async (id) => {
         try {
@@ -50,9 +54,9 @@ const UserDetails = () => {
     };
 
     return (<>
-        {isLoading ? (
-          <h3><center>Loading...</center></h3>  
-        ) :
+       {data === null ? (
+                <h3><center>Loading...</center></h3>
+            ) :
             (
                 <div className="datatable">
                     <input type="checkbox" id="reverse" />

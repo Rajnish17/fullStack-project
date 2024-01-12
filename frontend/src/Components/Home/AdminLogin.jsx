@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import baseUrl from "../../api"
+import baseUrl from "../api"
 import axios from 'axios'
-// import "./login.css"
+import "./adminlogin.css"
+import { Toaster,toast  } from 'react-hot-toast';
 
-const Login = () => {
+const AdminLogin = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState();
@@ -15,27 +16,28 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${baseUrl}/user/login`, { email, password });
+      const response = await axios.post(`${baseUrl}/admin/login`, { email, password });
       // console.log(response);
       const role =response.data.data.role;
-      const userId =response.data.data.userId;
+      const userId =response.data.data.id;
+      const  token  = response.data.data.token
+      console.log(token)
 
       if (response.status == 200 && role =="admin") {
-        const { token } = response.data.data;
+        const  token  = response.data.data.token;
         localStorage.setItem('token', token);
         localStorage.setItem('userId', userId);
-        navigate('/admin-dashboard');
-      }
-      else if(response.status == 200 && role =="user"){
-        const { token } = response.data.data;
-        localStorage.setItem('token', token);
-        localStorage.setItem('userId', userId);
-        navigate('/user-dashboard');
+        toast.success("Login success")
+
+        setTimeout(()=>{
+          navigate('/admin');
+        },1000)
       }
 
+
     } catch (error) {
-      // console.log(error.response.data.message);
-      setError(error.response.data.message);
+      console.log(error.response.data.error);
+      setError(error.response.data.error);
 
     }
   }
@@ -43,7 +45,9 @@ const Login = () => {
   return (
     <>
       <div className="login-page">
+        <Toaster/>
         <div className="form">
+        <h3>Admin Login</h3>
 
           <form className="login-form">
             <input type="text" placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} />
@@ -51,7 +55,7 @@ const Login = () => {
             <button onClick={handleLogin}>login</button>
             {error && <p className="error-message">{error}</p>}
             <p className="message">
-              Not registered? <Link to="/signup">Create an account</Link>
+              Not registered? <Link to="/admin-signup">Create an account</Link>
             </p>
           </form>
         </div>
@@ -61,4 +65,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default AdminLogin

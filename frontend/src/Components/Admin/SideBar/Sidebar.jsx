@@ -1,23 +1,26 @@
 import { useEffect } from 'react';
 import "./Sidebar.css"
-
 import { useNavigate,Link } from 'react-router-dom';
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
 
-  //   // if (!token) {
-  //   //   navigate("/login");
-  //   // }
-  // }, [navigate]);
+    if (!token || !userId) {
+      navigate("/admin-login");
+      return;
+    }
+  }, [navigate]);
 
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login")
+    localStorage.removeItem("userId");
+    navigate("/");
+    return;
   }
 
   return (
@@ -38,7 +41,7 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="has-subnav">
-            <Link to={"/"}>
+            <Link to={"/admin/shop"}>
               <i className="fa fa-comments fa-2x" />
               <span className="nav-text">Shop</span>
             </Link>
