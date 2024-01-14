@@ -1,0 +1,34 @@
+                        *****************User******************
+
+Create Account for User :-Click on Signup in Navbar Select User and Fill The Details.
+Login Account for User :-Click on Login in Navbar Select User and Fill The Details.
+
+View Profile :- After Login As User Click On Profile To View The User Profile Details.
+Edit User Details:- In Profile Details Section There is a Button Edit Click On Edit
+ and fill the required Details and Click on Save to Save Details.
+
+Visit DashBoard:- Click on DashBoard or Home to Go back To Home Page Of User.
+LogOut User -Click On Logout in Navbar To Logout User.
+
+                ************Admin************************
+
+Create Account for Admin :-Click on Signup in Navbar Select Admin and Fill The Details.
+Login Account for Admin :-Click on Login in Navbar Select Admin and Fill The Details.
+
+DashBoard Of Admin  :- After Login As Admin You will Get Admin DashBoard Where You Will Find 
+Total Number Of Users .
+
+View User Details:- Click On User on The DashBoard or in Left side of SideBar click on All Users
+To View User Details.
+
+Delete User Only Admin:- In User Details Section There is a Button for Deleting User.
+
+View Admin Profile -Click On Profile in Sidebar To View Admin Profile Details 
+You Can Edit And Save.
+
+Delete Admin Profile:- In Admin Profile Section Click on Delete To Delete Admin Account.
+
+LogOut Admin:- In Left Side Navbar In the Bottom There Is a Button For LogOut Click and Admin 
+will LogOut and Redirect to Home Page.
+
+
