@@ -1,31 +1,19 @@
 import { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
 import "./navbar.css";
 
 const Navbar = () => {
-  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
 
-  //   if (!token) {
-  //     navigate("/login");
-  //   }
-  // }, [navigate]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
-    navigate("/login");
-  }
+ 
 
   return (
     <nav className='nav-container'>
-      <div className="left">Unsplash</div>
+      <Link to={"/"} className="left">Unsplash</Link>
 
       <div className="right" />
       <ul className='ul-item'>
-        <li className='list-item' >Home</li>
+        <Link to={"/"} className='list-item' >Home</Link>
         <li className='list-item' >About</li>
         <li className='list-item' >Services</li>
 

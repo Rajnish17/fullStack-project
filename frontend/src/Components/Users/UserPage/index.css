@@ -1,13 +1,22 @@
 .user-container {
-  max-width: 600px;
+  max-width: 550px;
   margin: auto;
- 
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 600px;
 }
+.user-item{
+ width: 400px;
+ height: 450px;
+ padding: 20px;
+ border: 1px solid #ddd;
+ border-radius: 8px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ margin: auto;
 
+}
 h2 {
   color: #333;
 }

@@ -26,7 +26,7 @@ const Navbar = () => {
 
       <div className="right" />
       <ul className='ul-item'>
-        <li className='list-item' >Home</li>
+        <Link to={"/user"} className='list-item' >Home</Link>
         <li className='list-item' >About</li>
         <li className='list-item' >Services</li>
         <Link to={"/user/profile"} className='list-item'>  Profile</Link>

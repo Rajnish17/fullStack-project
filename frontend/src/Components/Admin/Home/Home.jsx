@@ -9,7 +9,7 @@ import
  import "./Home.css"
 import axios from 'axios';
 import baseUrl  from  "../../api";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 function Home() {
   const[Data,setData]=useState();
@@ -100,13 +100,13 @@ function Home() {
         </div>
 
         <div className='main-cards'>
-            <div className='card'>
-                <div className='card-inner'>
+            <Link className='card' to={"/admin/users"}>
+                <div className='card-inner' >
                     <h3>Users</h3>
                     <BsFillArchiveFill className='card_icon'/>
                 </div>
                 <h1>{Data}</h1>
-            </div>
+            </Link>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>CATEGORIES</h3>

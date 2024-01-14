@@ -89,9 +89,79 @@ const findOneAdminById = async (req, res) => {
     });
   }
 };
+//Delete Admin
+const deleteAdminById = async (req, res) => {
+  const adminId = req.params.id;
+
+  try {
+    const deletedAdmin = await Admin.findByIdAndDelete(adminId);
+
+    if (!deletedAdmin) {
+      return res.status(404).json({
+        success: false,
+        message: 'Admin not found',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Admin deleted successfully',
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+      error: error.message,
+    });
+  }
+};
+
+
+
+//update admin
+const updateAdminById = async (req, res) => {
+  const adminId = req.params.id;
+  const { name, email} = req.body;
+
+  try {
+      // Check if the admin with the provided ID exists
+      const admin = await Admin.findById(adminId);
+
+      if (!admin) {
+          return res.status(404).json({
+              success: false,
+              message: "Admin not found",
+          });
+      }
+
+      // Update user fields
+      if (name) admin.name = name;
+      if (email) admin.email = email;
+      
+
+      // Save the updated user to the database
+      await admin.save();
+
+      res.status(200).json({
+          success: true,
+          message: "User updated successfully",
+          user: admin,
+      });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({
+          success: false,
+          message: "Internal server error",
+          error: error,
+      });
+  }
+};
 
 module.exports = {
   registerAdmin,
   loginAdmin,
   findOneAdminById,
+  deleteAdminById,
+  updateAdminById
 };

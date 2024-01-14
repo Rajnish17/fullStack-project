@@ -41,9 +41,9 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="has-subnav">
-            <Link to={"/admin/shop"}>
+            <Link to={"/admin/profile"}>
               <i className="fa fa-comments fa-2x" />
-              <span className="nav-text">Shop</span>
+              <span className="nav-text">Profile</span>
             </Link>
           </li>
           <li className="has-subnav">

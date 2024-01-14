@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from "../../api";
-import "./index.css";
+import "./profile.css";
 import { useNavigate } from 'react-router-dom';
+import { Toaster,toast } from 'react-hot-toast';
 
-const UserDetails = () => {
+
+const AdminProfile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [message,setMessage]=useState(null);
   const [updatedUser, setUpdatedUser] = useState({
-    fullName: "",
+    name: "",
     email: "",
-    phoneNumber: "",
   });
   const [editField, setEditField] = useState(null);
 
@@ -21,22 +23,22 @@ const UserDetails = () => {
         const userId = localStorage.getItem("userId");
 
         if (!token) {
-          navigate("/user-login");
+          navigate("/admin-login");
           return;
         }
 
-        const response = await axios.get(`${baseUrl}/user/findone/${userId}`, {
+        const response = await axios.get(`${baseUrl}/admin/findone/${userId}`, {
           headers: {
             token: `Bearer ${token}`,
           },
         });
-
-        setUser(response.data.user);
+        // console.log(response)
+        setUser(response.data.admin);
       } catch (error) {
         console.error(error);
         if (error.response && error.response.status === 403) {
           // Unauthorized access, token is not valid
-          navigate("/user-login");
+          navigate("/admin-login");
         }
       }
     };
@@ -50,7 +52,7 @@ const UserDetails = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.put(
-        `${baseUrl}/user/update/${userId}`,
+        `${baseUrl}/admin/update/${userId}`,
         updatedUser,
         {
           headers: {
@@ -58,6 +60,7 @@ const UserDetails = () => {
           },
         }
       );
+      // console.log(response);
 
       setUser(response.data.user);
       setEditField(null);
@@ -80,34 +83,70 @@ const UserDetails = () => {
     if (editField) {
       // If in editing mode, save changes
       handleUpdateUser();
+      toast.success("update success")
     }
     setEditField(null);
   };
 
+
+  const handleDeleteAdmin = async() => {
+    try {
+      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
+
+      const response = await axios.delete(
+        `${baseUrl}/admin/delete/${userId}`,
+        {
+          headers: {
+            token: `Bearer ${token}`,
+          },
+        }
+        );
+        // console.log(response);
+        // setMessage(response.data.message)
+        toast.success(response.data.message)
+
+          setTimeout(() => {
+            if(response.status==200){
+              localStorage.removeItem("token");
+              localStorage.removeItem("userId");
+              navigate("/admin-login");
+              return;
+            }
+          }, 1000);
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
+  }
+
   return (
     <div className='user-container'>
+      <Toaster/>
       <h2>User Details</h2>
       {user ? (
+
         <div className='user-item'>
           <p>
-            <strong>Full Name:</strong>{' '}
-            {editField === 'fullName' ? (
+            <strong>Name:</strong>
+            {editField === 'name' ? (
               <input
                 type="text"
-                value={updatedUser.fullName}
+                value={updatedUser.name}
                 onChange={(e) =>
-                  setUpdatedUser({ ...updatedUser, fullName: e.target.value })
+                  setUpdatedUser({ ...updatedUser, name: e.target.value })
                 }
               />
             ) : (
-              <span>{user.fullName}</span>
+              <span>{user.name}</span>
             )}
-            <button onClick={handleEditClick.bind(null, 'fullName')}>
-              {editField === 'fullName' ? 'Cancel' : 'Edit'}
+            <button onClick={handleEditClick.bind(null, 'name')}>
+              {editField === 'name' ? 'Cancel' : 'Edit'}
             </button>
           </p>
+
           <p>
-            <strong>Email:</strong>{' '}
+            <strong>Email:</strong>
+
             {editField === 'email' ? (
               <input
                 type="email"
@@ -123,27 +162,18 @@ const UserDetails = () => {
               {editField === 'email' ? 'Cancel' : 'Edit'}
             </button>
           </p>
-          <p>
-            <strong>Phone Number:</strong>{' '}
-            {editField === 'phoneNumber' ? (
-              <input
-                type="tel"
-                value={updatedUser.phoneNumber}
-                onChange={(e) =>
-                  setUpdatedUser({ ...updatedUser, phoneNumber: e.target.value })
-                }
-              />
-            ) : (
-              <span>{user.phoneNumber}</span>
-            )}
-            <button onClick={handleEditClick.bind(null, 'phoneNumber')}>
-              {editField === 'phoneNumber' ? 'Cancel' : 'Edit'}
-            </button>
-          </p>
+
           <button onClick={handleSaveClick} disabled={!editField}>
             Save
           </button>
+          <div className='delete-admin'>
+            <h3>Delete Your Account</h3>
+            <button onClick={handleDeleteAdmin}>
+              Delete
+            </button>
+          </div>
         </div>
+
       ) : (
         <p>Loading user details...</p>
       )}
@@ -151,4 +181,4 @@ const UserDetails = () => {
   );
 };
 
-export default UserDetails;
+export default AdminProfile;

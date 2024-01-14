@@ -63,8 +63,8 @@ const UserDetails = () => {
             ) :
             (
                 <div className="datatable">
-                    <input type="checkbox" id="reverse" />
-                    <input type="checkbox" id="type" />
+                    {/* <input type="checkbox" id="reverse" />
+                    <input type="checkbox" id="type" /> */}
                     <h2>Users</h2>
                     <div className="row head">
 
@@ -75,6 +75,9 @@ const UserDetails = () => {
                         </div>
                         <div className="type">
                             <label htmlFor="type">Phone Number</label>
+                        </div>
+                        <div className="type">
+                            <label htmlFor="type">Delete</label>
                         </div>
                     </div>
 

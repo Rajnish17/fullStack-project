@@ -1,5 +1,6 @@
 import React from 'react'
 import "./header.css"
+import image1 from "./image1.jpg"
 
 
 const Header = () => {
@@ -8,7 +9,7 @@ const Header = () => {
    <section className="ban_sec">
   <div className="container-sec">
     <div className="ban_img">
-      <img src="https://shorturl.at/iEHQR" alt="banner" border={0} />
+      <img src={image1} alt="banner" border={0} />
       <div className="ban_text">
         <strong>
           <span>Meeting current</span>

@@ -1,5 +1,6 @@
 import React from 'react'
 import "./banner.css"
+import image from "./image.jpg"
 
 const Banner = () => {
   return (
@@ -7,7 +8,7 @@ const Banner = () => {
       <section className="ban_sec">
   <div className="container-sec">
     <div className="ban_img">
-      <img src="https://shorturl.at/iEHQR" alt="banner" border={0} />
+      <img src={image} alt="banner" border={0} />
       <div className="ban_text">
         <strong>
           <span>Meeting current</span>
